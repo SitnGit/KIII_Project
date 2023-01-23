@@ -1,9 +1,10 @@
 package mk.finki.ukim.mk.lab;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@SpringBootConfiguration
 class Labs1ApplicationTests {
 
     @Test

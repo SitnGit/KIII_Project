@@ -60,6 +60,16 @@ public class BalloonController {
         return "add-balloon";
     }
 
+    @GetMapping("/add-man")
+    public String getAddManPage(Model model){
+        return "add-manu";
+    }
+    @PostMapping("/add-manufacturer")
+    public String saveManufacturer(@RequestParam String name, @RequestParam String country, @RequestParam String adress){
+        this.manufacturerService.createManufacturer(name,country,adress);
+        return "redirect:/balloons";
+    }
+
     @DeleteMapping("/delete/{id}")
     public String deleteBalloon(@PathVariable Long id){
         this.balloonService.deleteById(id);

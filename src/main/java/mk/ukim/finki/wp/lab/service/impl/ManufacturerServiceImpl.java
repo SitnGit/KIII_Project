@@ -1,5 +1,6 @@
 package mk.ukim.finki.wp.lab.service.impl;
 
+import mk.ukim.finki.wp.lab.model.Balloon;
 import mk.ukim.finki.wp.lab.model.Manufacturer;
 import mk.ukim.finki.wp.lab.repository.impl.ManufacturerRepository;
 import mk.ukim.finki.wp.lab.repository.jpa.ManufacturerRepositoryJPA;
@@ -27,5 +28,12 @@ public class ManufacturerServiceImpl implements ManufacturerService {
         if(id == null)
             throw new IllegalArgumentException();
         return manufacturerRepository.getManufacturerById (id);
+    }
+
+    @Override
+    public void createManufacturer(String name, String country, String adress) {
+        if(name == null || country == null || adress == null)
+            throw new IllegalArgumentException();
+        manufacturerRepository.save(new Manufacturer(name,country,adress));
     }
 }

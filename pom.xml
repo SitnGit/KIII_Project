@@ -69,6 +69,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>blog-api-docker</finalName>
     </build>
 
 </project>

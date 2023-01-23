@@ -21,6 +21,11 @@
         <td th:text="${order.getUser().getUsername()}"></td>
         <td th:text="${order.getBalloonColor()}"></td>
         <td th:text="${order.getBalloonSize()}"></td>
+        <td class="text-right">
+            <form th:method="delete" th:action="@{'/orders/delete/{id}' (id=${order.getOrderId()})}">
+                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+        </td>
     </tr>
     </tbody>
     <form th:method="GET" th:action="@{'/balloons'}">

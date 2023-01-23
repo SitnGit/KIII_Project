@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface OrderService {
     void placeOrder(String balloonColor, String username, String balloonSize, LocalDateTime localDateTime);
-
+    void deleteOrder(Long id);
     List<Order> listAll();
 }

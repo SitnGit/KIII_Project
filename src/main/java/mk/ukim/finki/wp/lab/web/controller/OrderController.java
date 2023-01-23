@@ -38,6 +38,11 @@ public class OrderController {
         return "place-Order";
     }
 
+    @DeleteMapping("/delete/{id}")
+    public String deleteBalloon(@PathVariable Long id){
+        this.orderService.deleteOrder(id);
+        return "redirect:/orders";
+    }
     @PostMapping("/placeOrder")
     public String placeOrder(Model model, HttpSession session
             ,@RequestParam("date_Created")
@@ -53,4 +58,5 @@ public class OrderController {
         model.addAttribute("orders",orderService.listAll());
         return "userOrders";
     }
+
 }

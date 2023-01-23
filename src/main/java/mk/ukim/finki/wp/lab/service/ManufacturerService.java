@@ -9,4 +9,5 @@ public interface ManufacturerService {
     public List<Manufacturer> findAll();
 
     Manufacturer getManufacturerById(Long id);
+    void createManufacturer(String name, String description, String adress);
 }
