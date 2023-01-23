@@ -69,7 +69,7 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>blog-api-docker</finalName>
+        <finalName>kiii-project</finalName>
     </build>
 
 </project>
