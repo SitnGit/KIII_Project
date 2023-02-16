@@ -19,6 +19,15 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
+          env:
+            - name: DB_HOST
+              value: postgresql
+            - name: DB_NAME
+              value: postgres
+            - name: DB_USERNAME
+              value: nikola
+            - name: DB_PASSWORD
+              value: nikola
 ---
 apiVersion: v1
 kind: Service
@@ -31,4 +40,4 @@ spec:
     - protocol: "TCP"
       port: 8080
       targetPort: 8080
-  type: NodePort
+  type: LoadBalancer
