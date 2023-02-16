@@ -13,10 +13,11 @@ spec:
       labels:
         app: kiii-project
     spec:
+      terminationGracePeriodSeconds: 30
       containers:
         - name: kiii-project
           image: nikolafinkidocker/kiii-project:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
