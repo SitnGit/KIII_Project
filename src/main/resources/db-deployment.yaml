@@ -8,12 +8,12 @@ metadata:
     tier: database
 spec:
   ports:
-      port: 5432
+    - port: 5432
       targetPort: 5432
   selector:
     app: postgresql
     tier: database
-  type: LoadBalancer # DNS is used, so clusterIP is not needed
+  clusterIP: None # DNS is used, so clusterIP is not needed
 
 ---
 # Define a 'Persistent Volume Claim'(PVC) for MySQL Storage, dynamically provisioned by cluster
@@ -32,21 +32,7 @@ spec:
       storage: 1Gi    #This will tell kubernetes about the amount of space we are trying to claim.
 
 ---
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: postgres-pvc
-  labels:
-    type: local
-spec:
-  storageClassName: manual
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "D:\FAX\VI_Semestar\KIII\data"
----
+
 # Deployment specification begins here
 apiVersion: apps/v1
 kind: Deployment
@@ -59,7 +45,9 @@ spec:
   selector:
     matchLabels:
       app: postgresql
-  replicas: 1
+      tier: database
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels: # Must match 'Service' and 'Deployment' selectors
@@ -67,12 +55,9 @@ spec:
         tier: database
     spec:
       containers:
-        - name: postgresql
-          image: postgres:12
-          imagePullPolicy: "IfNotPresent"
+        - image: postgres:12.4
+          name: postgresql
           env:
-            - name: POSTGRES_USER
-              value: nikola
             - name: POSTGRES_PASSWORD
               value: nikola
             - name: POSTGRES_DB
@@ -81,9 +66,9 @@ spec:
             - containerPort: 5432
               name: postgresql
           volumeMounts:
-            - name: postgres-pvc
-              mountPath: /var/lib/postgresql/data
+            - name: postgres-persistent-storage
+              mountPath: /d/FAX/VI_Semestar/KIII/data
       volumes:
-        - name: postgres-pvc
+        - name: postgres-persistent-storage
           persistentVolumeClaim:
             claimName: postgres-pvc

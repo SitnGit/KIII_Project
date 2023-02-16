@@ -16,25 +16,19 @@ spec:
       containers:
         - name: kiii-project
           image: nikolafinkidocker/kiii-project:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
-          env:
-            - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://postgresql:5432/postgres
-            - name: SPRING_DATASOURCE_USERNAME
-              value: nikola
-            - name: SPRING_DATASOURCE_PASSWORD
-              value: nikola
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: kiii-project
+  name: kiii-project-service
 spec:
   selector:
     app: kiii-project
   ports:
-    - name: http
+    - protocol: "TCP"
       port: 8080
       targetPort: 8080
-  type: ClusterIP
+  type: NodePort
