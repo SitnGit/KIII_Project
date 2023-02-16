@@ -1,0 +1,40 @@
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kiii-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kiii-project
+  template:
+    metadata:
+      labels:
+        app: kiii-project
+    spec:
+      containers:
+        - name: kiii-project
+          image: nikolafinkidocker/kiii-project:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgresql:5432/postgres
+            - name: SPRING_DATASOURCE_USERNAME
+              value: nikola
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: nikola
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kiii-project
+spec:
+  selector:
+    app: kiii-project
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
