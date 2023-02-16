@@ -7,7 +7,6 @@
 # documentation.
 
 name: KIII_CI/CD
-
 on:
   push:
     branches: [ "master" ]

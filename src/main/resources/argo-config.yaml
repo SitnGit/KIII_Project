@@ -13,4 +13,4 @@ spec:
     server: https://kubernetes.default.svc
 
   syncPolicy:
-    automated:
+    automated: {}
